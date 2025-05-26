@@ -1,12 +1,11 @@
 {
   "name": "divine-x",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
+       "dev": "nodemon server.js"
+
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.1.2",
@@ -55,7 +54,11 @@
     "validator": "^13.15.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+        "nodemon": "^2.0.22"
+
   },
   "private": true
+ 
+  
 }
