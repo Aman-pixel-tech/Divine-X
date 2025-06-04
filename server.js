@@ -7,6 +7,8 @@ const validator = require('validator');
 const Review = require('./models/Review');
 const Alarm = require('./models/Alarm');
 const QuizResult = require('./models/QuizResult');
+require('dotenv').config();
+
 
 
 
@@ -19,10 +21,11 @@ app.use(express.json());
 
 
 // MongoDB Connection
-mongoose.connect('mongodb+srv://amanbari397:t1PMRQ3h5UcKycJE@cluster0.qzsvzgj.mongodb.net/DivineX')
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
+const jwtSecret = process.env.JWT_SECRET;
 
 
 
@@ -119,7 +122,7 @@ app.post('/signup', async (req, res) => {
       password: hashedPassword,
     });
 
-    const token = jwt.sign({ id: newUser._id }, 'secret', { expiresIn: '7d' });
+const token = jwt.sign({ id: newUser._id }, jwtSecret, { expiresIn: '7d' });
 
     const userResponse = {
       name:         newUser.name,
@@ -324,4 +327,6 @@ app.get('/quiz-results/:email', async (req,res)=>{
   res.json(list); 
 });
 // Server Start
-app.listen(3000, () => console.log('🚀 Server running on http://192.168.29.147:3000'));
+app.listen(process.env.PORT || 3000, () =>
+  console.log(`🚀 Server running on http://localhost:${process.env.PORT || 3000}`)
+);
