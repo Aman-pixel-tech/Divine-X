@@ -24,14 +24,15 @@ export const AuthProvider = ({ children }) => {
 
   const refreshUser = async () => {
     if(!user) return;
-    const res = await axios.get(`http://192.168.29.147:3000/user/${user.email}`);
+    const res = await axios.get(`https://divine-x-production.up.railway.app/user/${user.email}`);
     await AsyncStorage.setItem('userData', JSON.stringify(res.data));
     setUser(res.data);
   };
 
   const login = async (email, password) => {
     try {
-      const res = await axios.post('http://192.168.29.147:3000/login', { email, password });
+    const res = await axios.post('https://divine-x-production.up.railway.app/login', {email, password });
+
       const { token, user } = res.data;
 
       await AsyncStorage.setItem('userToken', token);
@@ -50,7 +51,7 @@ export const AuthProvider = ({ children }) => {
 
   const signup = async (data) => {
     try {
-      const res = await axios.post('http://192.168.29.147:3000/signup', data);
+      const res = await axios.post('https://divine-x-production.up.railway.app/signup', data);
       const { token, user } = res.data;
 
       await AsyncStorage.setItem('userToken', token);
